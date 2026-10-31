@@ -1,0 +1,18 @@
+# Publishes to PyPI when you create a GitHub release. No API token is stored anywhere:
+# PyPI trusts this workflow ("trusted publishing"). One-time setup is described in docs/RELEASING.md.
+name: publish
+on:
+  release:
+    types: [published]
+jobs:
+  pypi:
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install build && python -m build
+      - uses: pypa/gh-action-pypi-publish@release/v1

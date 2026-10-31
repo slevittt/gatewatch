@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gatewatch"
+version = "0.1.0"
+description = "Self-hosted PAC gateway and availability monitor: route selected domains through a configurable upstream, verify the real page result, recover automatically."
+readme = "README.md"
+authors = [{ name = "slevittt" }]
+requires-python = ">=3.9"
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = ["proxy", "pac", "socks5", "http-proxy", "healthcheck", "monitoring", "self-hosted", "homelab", "watchdog", "proxmox"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Operating System :: POSIX :: Linux",
+  "Topic :: Internet :: Proxy Servers",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/slevittt/gatewatch"
+Source = "https://github.com/slevittt/gatewatch"
+Issues = "https://github.com/slevittt/gatewatch/issues"
+Changelog = "https://github.com/slevittt/gatewatch/blob/main/CHANGELOG.md"
+
+[project.scripts]
+gatewatch = "gatewatch.cli:main"
+
+[tool.setuptools]
+packages = ["gatewatch"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["ignore::pytest.PytestUnraisableExceptionWarning"]

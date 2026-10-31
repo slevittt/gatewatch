@@ -1,0 +1,15 @@
+[Unit]
+Description=gatewatch PAC file server
+After=network-online.target
+
+[Service]
+User=gatewatch
+ExecStart=/usr/local/bin/gatewatch -c /etc/gatewatch/gatewatch.ini pac-serve --port 8094
+Restart=always
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+
+[Install]
+WantedBy=multi-user.target

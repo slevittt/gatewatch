@@ -1,0 +1,19 @@
+[Unit]
+Description=gatewatch relay (LAN proxy for region-locked AI sites)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=gatewatch
+StateDirectory=gatewatch
+ExecStart=/usr/local/bin/gatewatch -c /etc/gatewatch/gatewatch.ini relay
+Restart=always
+RestartSec=3
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+ReadWritePaths=/var/lib/gatewatch
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,23 @@
+# Not verified yet (the author runs gatewatch under systemd): feedback welcome.
+# Put your gatewatch.ini in ./config (copy examples/gatewatch.ini and edit it).
+services:
+  relay:
+    build: { context: ../.., dockerfile: contrib/docker/Dockerfile }
+    command: ["gatewatch", "relay"]
+    restart: unless-stopped
+    ports: ["10813:10813"]
+    volumes: ["state:/var/lib/gatewatch", "./config:/config:ro"]
+  guard:
+    build: { context: ../.., dockerfile: contrib/docker/Dockerfile }
+    command: ["gatewatch", "guard", "--loop", "300"]
+    restart: unless-stopped
+    network_mode: "service:relay"
+    volumes: ["state:/var/lib/gatewatch", "./config:/config:ro"]
+  pac:
+    build: { context: ../.., dockerfile: contrib/docker/Dockerfile }
+    command: ["gatewatch", "pac-serve", "--port", "8094"]
+    restart: unless-stopped
+    ports: ["8094:8094"]
+    volumes: ["./config:/config:ro"]
+volumes:
+  state: {}
